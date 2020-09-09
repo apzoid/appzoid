@@ -6,6 +6,11 @@
     <br />
 </p>
 
+## Features
+- Authentication
+- Database
+- Storage
+
 ## Contributing
 
 All code contributions - including those of people having commit access - must go through a pull request and approved by a core developer before being merged. This is to ensure proper review of all the code.
