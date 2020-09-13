@@ -1,6 +1,8 @@
 package app
 
 import (
+	"os"
+
 	"github.com/ezedinff/appzoid/config"
 	"github.com/ezedinff/appzoid/routes"
 	"github.com/gofiber/fiber"
@@ -20,7 +22,11 @@ func Serve() {
 	config.LoadEnv()
 	config.LoadAppConfig()
 	routes.RegisterRoute(App)
-	err := App.Listen(config.AppConfig.App_Port)
+	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		PORT = config.AppConfig.App_Port
+	}
+	err := App.Listen(PORT)
 	if err != nil {
 		panic("App not starting: " + err.Error() + "on Port: " + config.AppConfig.App_Port)
 	}
