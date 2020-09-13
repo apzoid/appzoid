@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/ezedinff/appzoid/app"
+)
 
 func main() {
-	fmt.Println("Cleaning the work space")
+	app.Serve()
 }
