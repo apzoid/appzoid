@@ -7,13 +7,14 @@ import (
 )
 
 type AppConfiguration struct {
-	App_Name        string
-	App_Upload_Path string
-	App_Upload_Size int
-	App_Env         string
-	App_Key         string
-	App_Url         string
-	App_Port        string
+	App_Name         string
+	App_Upload_Path  string
+	App_Upload_Size  int
+	App_Env          string
+	App_Key          string
+	App_Url          string
+	App_Port         string
+	APP_DATABASE_URL string
 }
 
 var AppConfig *AppConfiguration //nolint:gochecknoglobals
