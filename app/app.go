@@ -4,6 +4,8 @@ import (
 	"os"
 
 	"github.com/ezedinff/appzoid/config"
+	"github.com/ezedinff/appzoid/database"
+	"github.com/ezedinff/appzoid/models"
 	"github.com/ezedinff/appzoid/routes"
 	"github.com/gofiber/fiber"
 )
@@ -22,6 +24,8 @@ func Serve() {
 	config.LoadEnv()
 	config.LoadAppConfig()
 	routes.RegisterRoute(App)
+	database.DatabaseInit()
+	database.GetDB().Debug().AutoMigrate(&models.User{})
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = config.AppConfig.App_Port
