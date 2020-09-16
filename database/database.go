@@ -1,40 +1,23 @@
 package database
 
 import (
-	"context"
-	"log"
+	"fmt"
 
-	"github.com/ezedinff/appzoid/config"
-
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-//GetMongoDbConnection get connection of mongodb
-func GetMongoDbConnection() (*mongo.Client, error) {
-	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(config.AppConfig.APP_DATABASE_URL))
+var db *gorm.DB
 
+func DatabaseInit() {
+	dsn := "host=lallah.db.elephantsql.com user=zupcuvyz password=x_broQwnrHZW_lGVNbN74qQlhzpsAW-T dbname=zupcuvyz port=5432 sslmode=disable"
+	conn, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("Database not found")
 	}
-
-	err = client.Ping(context.Background(), readpref.Primary())
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return client, nil
+	db = conn
 }
 
-func getMongoDbCollection(DbName string, CollectionName string) (*mongo.Collection, error) {
-	client, err := GetMongoDbConnection()
-
-	if err != nil {
-		return nil, err
-	}
-
-	collection := client.Database(DbName).Collection(CollectionName)
-
-	return collection, nil
+func GetDB() *gorm.DB {
+	return db
 }
